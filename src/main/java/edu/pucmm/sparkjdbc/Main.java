@@ -10,7 +10,6 @@ import static spark.Spark.staticFiles;
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import static spark.Spark.*;
@@ -34,7 +33,7 @@ public class Main {
         DataBaseServices.getInstance().testConnection();
 
         get("/", (request, response) -> {
-            return renderFreemarker(null,"/index.ftl");
+            return renderFreemarker(null, "index.ftl");
         });
     }
 }
