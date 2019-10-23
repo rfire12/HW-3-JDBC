@@ -86,16 +86,15 @@ public class UsersServices {
 
         Connection con = null;
         try {
-            String query = "insert ino users(uid, username, name, password, role) values (?,?,?,?,?)";
+            String query = "insert ino users(username, name, password, role) values (?,?,?,?)";
             con = DataBaseServices.getInstance().getConnection();
 
             PreparedStatement preparedStatement = con.prepareStatement(query);
 
-            preparedStatement.setLong(1, user.getUid());
-            preparedStatement.setString(2, user.getUsername());
-            preparedStatement.setString(3, user.getName());
-            preparedStatement.setString(4, user.getPassword());
-            preparedStatement.setString(5, user.getRole());
+            preparedStatement.setString(1, user.getUsername());
+            preparedStatement.setString(2, user.getName());
+            preparedStatement.setString(3, user.getPassword());
+            preparedStatement.setString(4, user.getRole());
 
             int row = preparedStatement.executeUpdate();
             ok = row > 0;

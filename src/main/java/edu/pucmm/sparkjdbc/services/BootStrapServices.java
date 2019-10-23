@@ -1,5 +1,6 @@
 package edu.pucmm.sparkjdbc.services;
 
+import edu.pucmm.sparkjdbc.encapsulation.User;
 import org.h2.tools.Server;
 
 import java.sql.Connection;
@@ -19,20 +20,21 @@ public class BootStrapServices {
         System.out.println("Creando tablas...");
         String usersSQL = "CREATE TABLE IF NOT EXISTS USERS" +
                 "(" +
-                "UID BIGINT PRIMARY KEY NOT NULL," +
+                "UID BIGINT AUTO_INCREMENT PRIMARY KEY NOT NULL," +
                 "USERNAME VARCHAR(100)," +
                 "NAME VARCHAR(100)," +
                 "PASSWORD VARCHAR(100)," +
-                "ROLE VARCHAR (100)" +
+                "ROLE VARCHAR (100)," +
+                "UNIQUE KEY USERNAME_UNIQUE(USERNAME)" +
                 ");";
         String tagsSQL = "CREATE TABLE IF NOT EXISTS TAGS" +
                 "(" +
-                "UID BIGINT PRIMARY KEY NOT NULL," +
+                "UID BIGINT AUTO_INCREMENT PRIMARY KEY NOT NULL," +
                 "TAG VARCHAR(100) NOT NULL" +
                 ");";
         String articlesSQL = "CREATE TABLE IF NOT EXISTS ARTICLES" +
                 "(" +
-                "UID BIGINT PRIMARY KEY NOT NULL," +
+                "UID BIGINT AUTO_INCREMENT PRIMARY KEY NOT NULL," +
                 "TITLE VARCHAR(100) NOT NULL," +
                 "BODY VARCHAR(500) NOT NULL," +
                 "AUTHOR_ID BIGINT," +
@@ -41,7 +43,7 @@ public class BootStrapServices {
                 ");";
         String commentsSQL = "CREATE TABLE IF NOT EXISTS COMMENTS" +
                 "(" +
-                "UID BIGINT PRIMARY KEY NOT NULL," +
+                "UID BIGINT AUTO_INCREMENT PRIMARY KEY NOT NULL," +
                 "BODY VARCHAR(200) NOT NULL," +
                 "AUTHOR_ID BIGINT," +
                 "ARTICLE_ID BIGINT," +
@@ -64,6 +66,9 @@ public class BootStrapServices {
         statement.execute(commentsSQL);
         statement.execute(articlesTagsSQL);
         statement.close();
+
+        UsersServices.getInstance().createUser(new User("admin", "admin", "123456", "admin"));
+
         con.close();
         System.out.println("Tablas creadas con éxito!!");
     }

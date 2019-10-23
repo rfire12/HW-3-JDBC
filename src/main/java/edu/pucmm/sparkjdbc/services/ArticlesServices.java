@@ -3,10 +3,7 @@ package edu.pucmm.sparkjdbc.services;
 import edu.pucmm.sparkjdbc.encapsulation.Article;
 import edu.pucmm.sparkjdbc.encapsulation.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +44,7 @@ public class ArticlesServices {
                 article.setTitle(rs.getString("title"));
                 article.setInformation(rs.getString("body"));
                 article.setDate(rs.getDate("article_date"));
+
                 User author = UsersServices.getInstance().getUser(rs.getLong("author_id"));
                 article.setAuthor(author);
             }
@@ -54,5 +52,22 @@ public class ArticlesServices {
             e.printStackTrace();
         }
         return article;
+    }
+
+    public boolean createArticle(Article article) {
+        boolean ok = false;
+        Connection con = null;
+        try {
+            String query = "insert into articles(title,body,author_id,article_date) values(?,?,?,?)";
+            con = DataBaseServices.getInstance().getConnection();
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            preparedStatement.setString(1, article.getTitle());
+            preparedStatement.setString(2, article.getInformation());
+            preparedStatement.setLong(3, article.getAuthor().getUid());
+            preparedStatement.setDate(4, (Date) article.getDate());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ok;
     }
 }
