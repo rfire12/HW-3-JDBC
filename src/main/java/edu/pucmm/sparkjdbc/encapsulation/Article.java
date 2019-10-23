@@ -12,6 +12,10 @@ public class Article {
     private ArrayList<Comment> comments;
     private ArrayList<Tag> tags;
 
+    public Article() {
+
+    }
+
     public Article(String title, String information, User author, Date date) {
         this.title = title;
         this.information = information;

@@ -6,6 +6,10 @@ public class Comment {
     private User author;
     private Article article;
 
+    public Comment() {
+
+    }
+
     public Comment(String comment, User author, Article article) {
         this.comment = comment;
         this.author = author;
