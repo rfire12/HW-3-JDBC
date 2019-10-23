@@ -1,5 +1,6 @@
 package edu.pucmm.sparkjdbc;
 
+import edu.pucmm.sparkjdbc.encapsulation.Article;
 import edu.pucmm.sparkjdbc.services.BootStrapServices;
 import edu.pucmm.sparkjdbc.services.DataBaseServices;
 
@@ -10,6 +11,8 @@ import static spark.Spark.staticFiles;
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import static spark.Spark.*;
@@ -33,7 +36,10 @@ public class Main {
         DataBaseServices.getInstance().testConnection();
 
         get("/", (request, response) -> {
-            return renderFreemarker(null, "index.ftl");
+            Map<String, Object> articles = new HashMap<>();
+            ArrayList<Article> myArticles = new ArrayList<>();
+            articles.put("articles", myArticles);
+            return renderFreemarker(articles, "index.ftl");
         });
     }
 }
