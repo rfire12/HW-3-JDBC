@@ -10,6 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UsersServices {
+    private static UsersServices instance;
+
+    public static UsersServices getInstance() {
+        if (instance == null) {
+            instance = new UsersServices();
+        }
+        return instance;
+    }
+
     public List<User> listUsers() {
         List<User> users = new ArrayList<>();
         Connection con = null;
