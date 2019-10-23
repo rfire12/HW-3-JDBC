@@ -28,13 +28,7 @@ public class UsersServices {
             PreparedStatement preparedStatement = con.prepareStatement(query);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                User user = new User();
-                user.setUid(rs.getLong("uid"));
-                user.setUsername(rs.getString("username"));
-                user.setName(rs.getString("name"));
-                user.setPassword(rs.getString("password"));
-                user.setRole(rs.getString("role"));
-
+                User user = getUser(rs.getLong("uid"));
                 users.add(user);
             }
         } catch (SQLException ex) {
