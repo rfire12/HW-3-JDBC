@@ -29,7 +29,7 @@ public class UsersServices {
             PreparedStatement preparedStatement = con.prepareStatement(query);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                User user = getUser(rs.getLong("uid"));
+                User user = getUser(rs.getString("uid"));
                 users.add(user);
             }
         } catch (SQLException ex) {
@@ -45,7 +45,7 @@ public class UsersServices {
         return users;
     }
 
-    public User getUser(long uid) {
+    public User getUser(String uid) {
         User user = null;
 
         Connection con = null;
@@ -56,7 +56,7 @@ public class UsersServices {
 
             PreparedStatement preparedStatement = con.prepareStatement(query);
 
-            preparedStatement.setLong(1, uid);
+            preparedStatement.setString(1, uid);
 
             ResultSet rs = preparedStatement.executeQuery();
 

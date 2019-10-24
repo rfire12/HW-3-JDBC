@@ -71,6 +71,32 @@ public class TagsServices {
         return tag;
     }
 
+    public Tag getTagByUid(String uid) {
+        Tag tag = null;
+        Connection con = null;
+        try {
+            String query = "select * from tags where uid = ?";
+            con = DataBaseServices.getInstance().getConnection();
+
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            preparedStatement.setString(1, uid);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                tag = new Tag(rs.getString("uid"), rs.getString("tag"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return tag;
+    }
+
     public boolean createTag(Tag tag) {
         boolean ok = false;
         Connection con = null;

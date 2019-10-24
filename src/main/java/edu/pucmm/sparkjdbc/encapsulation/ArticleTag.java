@@ -1,26 +1,26 @@
 package edu.pucmm.sparkjdbc.encapsulation;
 
 public class ArticleTag {
-    private String uidArticle;
-    private String uidTag;
+    private Article article;
+    private Tag tag;
 
     public ArticleTag() {
 
     }
 
-    public String getUidArticle() {
-        return uidArticle;
+    public Article getArticle() {
+        return article;
     }
 
-    public void setUidArticle(String uidArticle) {
-        this.uidArticle = uidArticle;
+    public void setArticle(Article article) {
+        this.article = article;
     }
 
-    public String getUidTag() {
-        return uidTag;
+    public Tag getTag() {
+        return tag;
     }
 
-    public void setUidTag(String uidTag) {
-        this.uidTag = uidTag;
+    public void setTag(Tag tag) {
+        this.tag = tag;
     }
 }

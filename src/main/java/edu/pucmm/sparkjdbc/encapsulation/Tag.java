@@ -4,6 +4,9 @@ public class Tag {
     private String uid;
     private String tag;
 
+    public Tag() {
+
+    }
 
     public Tag(String uid, String tag) {
         this.uid = uid;

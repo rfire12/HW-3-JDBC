@@ -3,15 +3,12 @@ package edu.pucmm.sparkjdbc;
 import edu.pucmm.sparkjdbc.encapsulation.Article;
 import edu.pucmm.sparkjdbc.encapsulation.Tag;
 import edu.pucmm.sparkjdbc.encapsulation.User;
-import edu.pucmm.sparkjdbc.services.ArticlesServices;
-import edu.pucmm.sparkjdbc.services.BootStrapServices;
-import edu.pucmm.sparkjdbc.services.DataBaseServices;
+import edu.pucmm.sparkjdbc.services.*;
 
 import java.sql.SQLException;
 
 import static spark.Spark.staticFiles;
 
-import edu.pucmm.sparkjdbc.services.TagsServices;
 import edu.pucmm.sparkjdbc.utils.Utils;
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
@@ -33,20 +30,19 @@ public class Main {
 
         staticFiles.location("/publico");
 
-        // Iniciando el servicio
+        // Starting the server
         BootStrapServices.startDb();
 
-        // Crear las tablas
+        // Creating tables
         BootStrapServices.createTables();
 
-        // Probando conexión
+        // Testing connection
         DataBaseServices.getInstance().testConnection();
 
         get("/", (request, response) -> {
             Map<String, Object> obj = new HashMap<>();
             obj.put("articles", ArticlesServices.getInstance().getArticles());
             obj.put("tags", TagsServices.getInstance().getTags());
-            System.out.println("TAGS: " + TagsServices.getInstance().getTags().size());
             return renderFreemarker(obj, "index.ftl");
         });
 

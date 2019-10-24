@@ -1,11 +1,14 @@
 package edu.pucmm.sparkjdbc.services;
 
 import edu.pucmm.sparkjdbc.encapsulation.ArticleTag;
+import edu.pucmm.sparkjdbc.encapsulation.Tag;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ArticlesTagsServices {
     private static ArticlesTagsServices instance;
@@ -17,7 +20,37 @@ public class ArticlesTagsServices {
         return instance;
     }
 
-    public ArticleTag getArticleTag(long uidArticle, long uidTag) {
+    public ArrayList<Tag> getArticleTags(String uidArticle) {
+        ArrayList<Tag> articleTags = new ArrayList<>();
+        Connection con = null;
+        try {
+            String query = "select * from articlestags where article_id = ?";
+            con = DataBaseServices.getInstance().getConnection();
+
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            preparedStatement.setString(1, uidArticle);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                Tag tag = TagsServices.getInstance().getTagByUid(rs.getString("tag_id"));
+                articleTags.add(tag);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return articleTags;
+    }
+
+    public ArticleTag getArticleTag(String uidArticle, String nameTag) {
         ArticleTag articleTag = null;
         Connection con = null;
         try {
@@ -25,14 +58,14 @@ public class ArticlesTagsServices {
             con = DataBaseServices.getInstance().getConnection();
 
             PreparedStatement preparedStatement = con.prepareStatement(query);
-            preparedStatement.setLong(1, uidArticle);
-            preparedStatement.setLong(2, uidTag);
+            preparedStatement.setString(1, uidArticle);
+            preparedStatement.setString(2, nameTag);
 
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 articleTag = new ArticleTag();
-                articleTag.setUidArticle(rs.getString("id_article"));
-                articleTag.setUidTag(rs.getString("id_tag"));
+                articleTag.setArticle(ArticlesServices.getInstance().getArticle(rs.getString("id_article")));
+                articleTag.setTag(TagsServices.getInstance().getTag(rs.getString("name_tag")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -53,7 +86,7 @@ public class ArticlesTagsServices {
         Connection con = null;
 
         try {
-            String query = "insert into articlestags(id_article,id_tag) values(?,?)";
+            String query = "insert into articlestags(article_id,tag_id) values(?,?)";
             con = DataBaseServices.getInstance().getConnection();
             PreparedStatement preparedStatement = con.prepareStatement(query);
 

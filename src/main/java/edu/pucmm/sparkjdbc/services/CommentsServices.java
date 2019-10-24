@@ -23,7 +23,7 @@ public class CommentsServices {
         return instance;
     }
 
-    public List<Comment> listComments(long articleId) {
+    public List<Comment> listComments(String articleId) {
         List<Comment> comments = new ArrayList<>();
 
         Connection con = null;
@@ -33,7 +33,7 @@ public class CommentsServices {
             con = DataBaseServices.getInstance().getConnection();
             PreparedStatement preparedStatement = con.prepareStatement(query);
 
-            preparedStatement.setLong(1, articleId);
+            preparedStatement.setString(1, articleId);
 
             ResultSet rs = preparedStatement.executeQuery();
 
@@ -41,7 +41,7 @@ public class CommentsServices {
                 Comment comment = new Comment();
                 comment.setUid(rs.getString("uid"));
                 comment.setComment(rs.getString("body"));
-                long authorId = rs.getLong("author_id");
+                String authorId = rs.getString("author_id");
                 User author = UsersServices.getInstance().getUser(authorId);
                 comment.setAuthor(author);
             }
