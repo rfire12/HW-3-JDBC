@@ -1,6 +1,7 @@
 package edu.pucmm.sparkjdbc;
 
 import edu.pucmm.sparkjdbc.encapsulation.Article;
+import edu.pucmm.sparkjdbc.encapsulation.User;
 import edu.pucmm.sparkjdbc.services.ArticlesServices;
 import edu.pucmm.sparkjdbc.services.BootStrapServices;
 import edu.pucmm.sparkjdbc.services.DataBaseServices;
@@ -13,6 +14,7 @@ import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,6 +42,20 @@ public class Main {
             Map<String, Object> articles = new HashMap<>();
             articles.put("articles", ArticlesServices.getInstance().getArticles());
             return renderFreemarker(articles, "index.ftl");
+        });
+
+        get("/new-article", (request, response) -> {
+            return renderFreemarker(null,"new-article.ftl");
+        });
+
+        post("/new-article", (request, response) -> {
+            Date todaysDate = new Date();
+            java.sql.Date date = new java.sql.Date(todaysDate.getTime());
+            User author = new User("autor01256", "Luis Garcia", "123456", "admin"); //This should be deleted when sessions get implemented
+            Article article = new Article(request.queryParams("title"), request.queryParams("article-body"), author, date);
+            ArticlesServices.getInstance().createArticle(article);
+            response.redirect("/");
+            return "";
         });
     }
 }

@@ -88,7 +88,6 @@
 
       </div>
 
-      <!--
       <!-- Sidebar Widgets Column -->
       <div class="col-md-4">
 
@@ -149,7 +148,6 @@
         </div>
 
       </div>
-      -->
     </div>
     <!-- /.row -->
 
@@ -165,8 +163,9 @@
   </footer>
 
   <!-- Bootstrap core JavaScript -->
+  <!--
   <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>-->
 
 </body>
 
