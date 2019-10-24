@@ -7,6 +7,16 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class ArticlesServices {
+
+    private static ArticlesServices instance;
+
+    public static ArticlesServices getInstance() {
+        if (instance == null) {
+            instance = new ArticlesServices();
+        }
+        return instance;
+    }
+
     public ArrayList<Article> getArticles() {
         ArrayList<Article> articles = new ArrayList<>();
         Connection con = null;
