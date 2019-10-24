@@ -58,6 +58,8 @@ public class Main {
             String[] tags = request.queryParams("tags").split(",");
             ArrayList<Tag> tagList = Utils.arrayToTagList(tags);
 
+
+
             Article article = new Article(request.queryParams("title"), request.queryParams("article-body"), author, date);
             ArticlesServices.getInstance().createArticle(article);
             response.redirect("/");
