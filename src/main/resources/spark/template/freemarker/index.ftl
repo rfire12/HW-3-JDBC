@@ -68,9 +68,9 @@
               <a href="#" class="btn btn-primary">Read More &rarr;</a>
             </div>
             <div class="card-footer text-muted">
-              <#list article.tags as tag>
-                <a href="#" class="badge badge-primary">${tag.tag}</a>
-              </#list>
+<#--              <#list article.tags as tag>-->
+<#--                <a href="#" class="badge badge-primary">${tag.tag}</a>-->
+<#--              </#list>-->
             </div>
           </div>
         </#list>

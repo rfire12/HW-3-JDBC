@@ -49,6 +49,7 @@ public class ArticlesServices {
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
+                article = new Article();
                 article.setUid(rs.getLong("uid"));
                 article.setTitle(rs.getString("title"));
                 article.setInformation(rs.getString("body"));
