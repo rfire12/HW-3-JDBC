@@ -1,10 +1,12 @@
 package edu.pucmm.sparkjdbc.services;
 
 import edu.pucmm.sparkjdbc.encapsulation.Article;
+import edu.pucmm.sparkjdbc.encapsulation.Tag;
 import edu.pucmm.sparkjdbc.encapsulation.User;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class ArticlesServices {
 
@@ -31,6 +33,12 @@ public class ArticlesServices {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         return articles;
@@ -50,7 +58,7 @@ public class ArticlesServices {
 
             while (rs.next()) {
                 article = new Article();
-                article.setUid(rs.getLong("uid"));
+                article.setUid(rs.getString("uid"));
                 article.setTitle(rs.getString("title"));
                 article.setInformation(rs.getString("body"));
                 article.setDate(rs.getDate("article_date"));
@@ -60,6 +68,12 @@ public class ArticlesServices {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return article;
     }
@@ -68,16 +82,23 @@ public class ArticlesServices {
         boolean ok = false;
         Connection con = null;
         try {
-            String query = "insert into articles(title,body,author_id,article_date) values(?,?,?,?)";
+            String query = "insert into articles(uid,title,body,author_id,article_date) values(?,?,?,?,?)";
             con = DataBaseServices.getInstance().getConnection();
+            String uniqueID = UUID.randomUUID().toString();
             PreparedStatement preparedStatement = con.prepareStatement(query);
-            preparedStatement.setString(1, article.getTitle());
-            preparedStatement.setString(2, article.getInformation());
-            preparedStatement.setLong(3, article.getAuthor().getUid());
-            preparedStatement.setDate(4, (Date) article.getDate());
+            preparedStatement.setString(1, uniqueID);
+            preparedStatement.setString(2, article.getTitle());
+            preparedStatement.setString(3, article.getInformation());
+            preparedStatement.setString(4, article.getAuthor().getUid());
+            preparedStatement.setDate(5, (Date) article.getDate());
 
             int row = preparedStatement.executeUpdate();
             ok = row > 0;
+
+            for (Tag tag : article.getTags()) {
+                ArticlesTagsServices.getInstance().createArticleTag(uniqueID, tag.getUid());
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

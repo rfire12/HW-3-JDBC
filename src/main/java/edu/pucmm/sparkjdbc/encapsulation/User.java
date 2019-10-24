@@ -1,7 +1,7 @@
 package edu.pucmm.sparkjdbc.encapsulation;
 
 public class User {
-    private long uid;
+    private String uid;
     private String username;
     private String name;
     private String password;
@@ -18,11 +18,11 @@ public class User {
         this.role = role;
     }
 
-    public long getUid() {
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(long uid) {
+    public void setUid(String uid) {
         this.uid = uid;
     }
 

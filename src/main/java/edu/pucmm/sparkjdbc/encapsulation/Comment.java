@@ -1,7 +1,7 @@
 package edu.pucmm.sparkjdbc.encapsulation;
 
 public class Comment {
-    private long uid;
+    private String uid;
     private String comment;
     private User author;
     private Article article;
@@ -16,11 +16,11 @@ public class Comment {
         this.article = article;
     }
 
-    public long getUid() {
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(long uid) {
+    public void setUid(String uid) {
         this.uid = uid;
     }
 

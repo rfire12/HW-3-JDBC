@@ -39,7 +39,7 @@ public class CommentsServices {
 
             while (rs.next()) {
                 Comment comment = new Comment();
-                comment.setUid(rs.getLong("uid"));
+                comment.setUid(rs.getString("uid"));
                 comment.setComment(rs.getString("body"));
                 long authorId = rs.getLong("author_id");
                 User author = UsersServices.getInstance().getUser(authorId);

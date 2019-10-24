@@ -1,18 +1,22 @@
 package edu.pucmm.sparkjdbc.encapsulation;
 
 public class Tag {
-    private long uid;
+    private String uid;
     private String tag;
+
+    public Tag() {
+
+    }
 
     public Tag(String tag) {
         this.tag = tag;
     }
 
-    public long getUid() {
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(long uid) {
+    public void setUid(String uid) {
         this.uid = uid;
     }
 

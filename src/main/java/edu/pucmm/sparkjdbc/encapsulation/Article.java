@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Article {
-    private long uid;
+    private String uid;
     private String title;
     private String information;
     private User author;
@@ -22,11 +22,11 @@ public class Article {
         this.date = date;
     }
 
-    public long getUid() {
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(long uid) {
+    public void setUid(String uid) {
         this.uid = uid;
     }
 
