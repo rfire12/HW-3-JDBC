@@ -54,8 +54,8 @@
       <!-- Blog Entries Column -->
       <div class="col-md-8">
 
-        <h1 class="my-4">Page Heading
-          <small>Feed</small>
+        <h1 class="my-4">Latest
+          <small>Articles</small>
         </h1>
 
         <!-- Blog Post -->
@@ -88,6 +88,7 @@
 
       </div>
 
+      <!--
       <!-- Sidebar Widgets Column -->
       <div class="col-md-4">
 
@@ -148,7 +149,7 @@
         </div>
 
       </div>
-
+      -->
     </div>
     <!-- /.row -->
 

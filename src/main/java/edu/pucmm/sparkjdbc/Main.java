@@ -1,6 +1,7 @@
 package edu.pucmm.sparkjdbc;
 
 import edu.pucmm.sparkjdbc.encapsulation.Article;
+import edu.pucmm.sparkjdbc.services.ArticlesServices;
 import edu.pucmm.sparkjdbc.services.BootStrapServices;
 import edu.pucmm.sparkjdbc.services.DataBaseServices;
 
@@ -37,8 +38,7 @@ public class Main {
 
         get("/", (request, response) -> {
             Map<String, Object> articles = new HashMap<>();
-            ArrayList<Article> myArticles = new ArrayList<>();
-            articles.put("articles", myArticles);
+            articles.put("articles", ArticlesServices.getInstance().getArticles());
             return renderFreemarker(articles, "index.ftl");
         });
     }
