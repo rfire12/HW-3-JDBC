@@ -62,5 +62,11 @@ public class Main {
             response.redirect("/");
             return "";
         });
+
+        get("/articles/:id", ((request, response) -> {
+            Map<String, Object> obj = new HashMap<>();
+            obj.put("article", ArticlesServices.getInstance().getArticle(request.params("id")));
+            return renderFreemarker(obj, "showArticle.ftl");
+        }));
     }
 }

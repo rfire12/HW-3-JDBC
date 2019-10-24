@@ -66,7 +66,7 @@
                     <div class="card-body">
                         <h2 class="card-title">${article.title}</h2>
                         <p class="card-text">${article.information}</p>
-                        <a href="#" class="btn btn-primary">Read More &rarr;</a>
+                        <a href="articles/${article.uid}" class="btn btn-primary">Read More &rarr;</a>
                     </div>
                     <div class="card-footer text-muted">
                         <#list article.tags as tag>
