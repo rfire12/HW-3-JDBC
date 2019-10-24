@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class TagsServices {
@@ -17,6 +19,33 @@ public class TagsServices {
             instance = new TagsServices();
         }
         return instance;
+    }
+
+    public List<Tag> getTags() {
+        List<Tag> tags = new ArrayList<>();
+        Connection con = null;
+        try {
+            String query = "select * from tags";
+            con = DataBaseServices.getInstance().getConnection();
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                Tag tag = new Tag();
+                tag.setUid(rs.getString("uid"));
+                tag.setTag(rs.getString("tag"));
+
+                tags.add(tag);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return tags;
     }
 
     public Tag getTag(long uid) {
