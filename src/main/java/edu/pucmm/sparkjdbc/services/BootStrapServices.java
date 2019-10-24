@@ -39,7 +39,6 @@ public class BootStrapServices {
                 "BODY VARCHAR(500) NOT NULL," +
                 "AUTHOR_ID BIGINT," +
                 "ARTICLE_DATE DATE, " +
-                "FOREIGN KEY(AUTHOR_ID) REFERENCES USERS(UID)," +
                 ");";
         String commentsSQL = "CREATE TABLE IF NOT EXISTS COMMENTS" +
                 "(" +
