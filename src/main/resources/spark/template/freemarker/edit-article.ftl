@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Blog Home - Start Bootstrap Template</title>
+    <title>BlogSpark - The biggest Java Spark community in the world!</title>
 
     <link href="/css/bootstrap.css" rel="stylesheet"/>
     <script src="/js/bootstrap.js"></script>
@@ -21,7 +21,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="/">Start Bootstrap</a>
+        <a class="navbar-brand" href="#">BlogSpark</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -49,18 +49,41 @@
 
 <!-- Page Content -->
 <div class="container">
+
     <div class="row">
-        <div class="col-md-2"></div>
+
+        <!-- Blog Entries Column -->
         <div class="col-md-8">
-            <br/>
-            <h2>${article.title}</h2>
-            <br/>
-            <h4>${article.information}</h4>
-            <br/>
-            <h6>Published: ${article.date}</h6>
+
+            <h1 class="my-4">Edit
+                <small>Article</small>
+            </h1>
+
+            <form action="/new-article" method="POST">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Title</label>
+                    <input type="text" class="form-control" id="title" name="title"
+                           placeholder="Enter your article title" value="${article.title}">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Article</label>
+                    <textarea class="form-control" id="article-body" name="article-body"
+                              rows="7">${article.information}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Tags</label>
+                    <input type="text" class="form-control" id="tags" name="tags"
+                           placeholder="e.g: Javascript, Python, Ruby">
+                </div>
+                <button type="submit" class="btn btn-primary">Update Article</button>
+            </form>
+
+
         </div>
-        <div class="col-md-2"></div>
+
     </div>
+    <!-- /.row -->
+
 </div>
 <!-- /.container -->
 
@@ -73,8 +96,6 @@
 </footer>
 
 <!-- Bootstrap core JavaScript -->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 </body>
 

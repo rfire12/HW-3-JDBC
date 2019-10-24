@@ -63,10 +63,16 @@ public class Main {
             return "";
         });
 
-        get("/articles/:id", ((request, response) -> {
+        get("/articles/:id", (request, response) -> {
             Map<String, Object> obj = new HashMap<>();
             obj.put("article", ArticlesServices.getInstance().getArticle(request.params("id")));
-            return renderFreemarker(obj, "showArticle.ftl");
-        }));
+            return renderFreemarker(obj, "show-article.ftl");
+        });
+
+        get("/articles/:id/edit", (request, response) -> {
+            Map<String, Object> obj = new HashMap<>();
+            obj.put("article", ArticlesServices.getInstance().getArticle(request.params("id")));
+            return renderFreemarker(obj, "edit-article.ftl");
+        });
     }
 }
