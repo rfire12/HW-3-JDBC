@@ -30,10 +30,7 @@ public class TagsServices {
             PreparedStatement preparedStatement = con.prepareStatement(query);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                Tag tag = new Tag();
-                tag.setUid(rs.getString("uid"));
-                tag.setTag(rs.getString("tag"));
-
+                Tag tag = new Tag(rs.getString("uid"), rs.getString("tag"));
                 tags.add(tag);
             }
         } catch (SQLException e) {
@@ -59,9 +56,7 @@ public class TagsServices {
             preparedStatement.setLong(1, uid);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                tag = new Tag();
-                tag.setUid(rs.getString("uid"));
-                tag.setTag(rs.getString("tag"));
+                tag = new Tag(rs.getString("uid"), rs.getString("tag"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

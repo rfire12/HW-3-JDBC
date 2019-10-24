@@ -58,12 +58,6 @@ public class Main {
             String[] tags = request.queryParams("tags").split(",");
 
             ArrayList<Tag> tagList = Utils.arrayToTagList(tags);
-            ArrayList<Tag> createdTags = TagsServices.getInstance().getTags(); // Get tags on the Database
-            for(Tag tag : tagList){
-                if(!Utils.isTagInArray(tag, createdTags)) //If the tag is not created, then insert it on the database
-                    TagsServices.getInstance().createTag(tag);
-            }
-
             Article article = new Article(request.queryParams("title"), request.queryParams("article-body"), author, date, tagList);
             ArticlesServices.getInstance().createArticle(article);
             response.redirect("/");

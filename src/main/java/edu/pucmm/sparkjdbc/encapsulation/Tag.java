@@ -5,7 +5,8 @@ public class Tag {
     private String tag;
 
 
-    public Tag(String tag) {
+    public Tag(String uid, String tag) {
+        this.uid = uid;
         this.tag = tag;
     }
 
