@@ -5,11 +5,20 @@ import edu.pucmm.sparkjdbc.encapsulation.User;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ArticlesServices {
-    public List<Article> listArticle() {
-        List<Article> articles = new ArrayList<>();
+
+    private static ArticlesServices instance;
+
+    public static ArticlesServices getInstance() {
+        if (instance == null) {
+            instance = new ArticlesServices();
+        }
+        return instance;
+    }
+
+    public ArrayList<Article> getArticles() {
+        ArrayList<Article> articles = new ArrayList<>();
         Connection con = null;
         try {
             String query = "select * from articles";
@@ -65,8 +74,17 @@ public class ArticlesServices {
             preparedStatement.setString(2, article.getInformation());
             preparedStatement.setLong(3, article.getAuthor().getUid());
             preparedStatement.setDate(4, (Date) article.getDate());
+
+            int row = preparedStatement.executeUpdate();
+            ok = row > 0;
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return ok;
     }
