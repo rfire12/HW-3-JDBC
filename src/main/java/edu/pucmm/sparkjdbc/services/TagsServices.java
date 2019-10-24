@@ -7,6 +7,16 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class TagsServices {
+
+    private static TagsServices instance;
+
+    public static TagsServices getInstance() {
+        if (instance == null) {
+            instance = new TagsServices();
+        }
+        return instance;
+    }
+
     public boolean createTag(Tag tag) {
         boolean ok = false;
         Connection con = null;

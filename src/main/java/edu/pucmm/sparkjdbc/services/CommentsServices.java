@@ -12,6 +12,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CommentsServices {
+
+    private static CommentsServices instance;
+
+    public static CommentsServices getInstance() {
+        if (instance == null) {
+            instance = new CommentsServices();
+        }
+
+        return instance;
+    }
+
     public List<Comment> listComments(long articleId) {
         List<Comment> comments = new ArrayList<>();
 
