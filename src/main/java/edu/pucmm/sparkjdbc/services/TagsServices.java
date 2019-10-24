@@ -45,15 +45,15 @@ public class TagsServices {
         return tags;
     }
 
-    public Tag getTag(long uid) {
+    public Tag getTag(String name) {
         Tag tag = null;
         Connection con = null;
         try {
-            String query = "select * from tags where uid = ?";
+            String query = "select * from tags where tag = ?";
             con = DataBaseServices.getInstance().getConnection();
 
             PreparedStatement preparedStatement = con.prepareStatement(query);
-            preparedStatement.setLong(1, uid);
+            preparedStatement.setString(1, name);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 tag = new Tag(rs.getString("uid"), rs.getString("tag"));

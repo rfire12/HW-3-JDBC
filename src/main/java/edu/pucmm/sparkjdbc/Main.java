@@ -28,6 +28,7 @@ public class Main {
     public static String renderFreemarker(Map<String, Object> model, String templatePath) {
         return new FreeMarkerEngine().render(new ModelAndView(model, templatePath));
     }
+
     public static void main(String[] args) throws SQLException {
 
         staticFiles.location("/publico");
@@ -42,13 +43,15 @@ public class Main {
         DataBaseServices.getInstance().testConnection();
 
         get("/", (request, response) -> {
-            Map<String, Object> articles = new HashMap<>();
-            articles.put("articles", ArticlesServices.getInstance().getArticles());
-            return renderFreemarker(articles, "index.ftl");
+            Map<String, Object> obj = new HashMap<>();
+            obj.put("articles", ArticlesServices.getInstance().getArticles());
+            obj.put("tags", TagsServices.getInstance().getTags());
+            System.out.println("TAGS: " + TagsServices.getInstance().getTags().size());
+            return renderFreemarker(obj, "index.ftl");
         });
 
         get("/new-article", (request, response) -> {
-            return renderFreemarker(null,"new-article.ftl");
+            return renderFreemarker(null, "new-article.ftl");
         });
 
         post("/new-article", (request, response) -> {

@@ -69,7 +69,7 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Tags</label>
-                    <input type="text" class="form-control" id="tags" name="tags" placeholder="e.g: Javascript, Pythom, Ruby">
+                    <input type="text" class="form-control" id="tags" name="tags" placeholder="e.g: Javascript, Python, Ruby">
                 </div>
                 <button type="submit" class="btn btn-primary">Create Article</button>
             </form>
