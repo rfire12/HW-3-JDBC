@@ -107,7 +107,6 @@ public class ArticlesServices {
 
             for (Tag tag : article.getTags()) {
                 ArticlesTagsServices.getInstance().createArticleTag(uniqueID, TagsServices.getInstance().getTag(tag.getTag()).getUid());
-                System.out.println("TAG-ARTICLE");
             }
 
         } catch (SQLException e) {
