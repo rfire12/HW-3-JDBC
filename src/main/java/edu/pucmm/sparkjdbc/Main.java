@@ -56,15 +56,9 @@ public class Main {
             java.sql.Date date = new java.sql.Date(todaysDate.getTime());
             User author = new User("autor01256", "Luis Garcia", "123456", "admin"); //This should be deleted when sessions get implemented
             String[] tags = request.queryParams("tags").split(",");
-
             ArrayList<Tag> tagList = Utils.arrayToTagList(tags);
-            ArrayList<Tag> createdTags = TagsServices.getInstance().getTags(); // Get tags on the Database
-            for(Tag tag : tagList){
-                if(!Utils.isTagInArray(tag, createdTags)) //If the tag is not created, then insert it on the database
-                    TagsServices.getInstance().createTag(tag);
-            }
 
-            Article article = new Article(request.queryParams("title"), request.queryParams("article-body"), author, date, tagList);
+            Article article = new Article(request.queryParams("title"), request.queryParams("article-body"), author, date);
             ArticlesServices.getInstance().createArticle(article);
             response.redirect("/");
             return "";
