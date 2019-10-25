@@ -75,5 +75,11 @@ public class ArticlesController {
             obj.put("tags", tagsTxt);
             return TemplatesController.renderFreemarker(obj, "edit-article.ftl");
         });
+
+        post("/articles/:id/delete", (request, response) -> {
+            ArticlesServices.getInstance().deleteArticle(request.params("id"));
+            response.redirect("/");
+            return "";
+        });
     }
 }

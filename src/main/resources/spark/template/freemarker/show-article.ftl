@@ -57,9 +57,10 @@
             <div class="card my-4">
                 <h5 class="card-header">Settings</h5>
                 <div class="card-body">
-                    <div class="input-group">
-                        <a href="/articles/${article.uid}/edit" class="btn btn-dark">Edit this article</a>
-                    </div>
+                    <a href="/articles/${article.uid}/edit" class="btn btn-dark">Edit this article</a>
+                    <form action="/articles/${article.uid}/delete" method="post">
+                        <button type="submit" class="btn btn-danger">Delete this article</button>
+                    </form>
                 </div>
             </div>
         </div>

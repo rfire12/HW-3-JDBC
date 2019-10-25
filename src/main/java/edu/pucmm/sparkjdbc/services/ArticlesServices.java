@@ -1,6 +1,7 @@
 package edu.pucmm.sparkjdbc.services;
 
 import edu.pucmm.sparkjdbc.encapsulation.Article;
+import edu.pucmm.sparkjdbc.encapsulation.Comment;
 import edu.pucmm.sparkjdbc.encapsulation.Tag;
 import edu.pucmm.sparkjdbc.encapsulation.User;
 import edu.pucmm.sparkjdbc.utils.Utils;
@@ -154,6 +155,40 @@ public class ArticlesServices {
                 ArticlesTagsServices.getInstance().createArticleTag(article.getUid(), TagsServices.getInstance().getTag(tag.getTag()).getUid());
             }
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return ok;
+    }
+
+    public boolean deleteArticle(String uid) {
+        boolean ok = false;
+        Connection con = null;
+        try {
+            Article article = getArticle(uid);
+
+            for (Tag tag : article.getTags())
+                ArticlesTagsServices.getInstance().deleteArticleTags(uid);
+
+            String query = "delete from articles where uid = ?";
+            con = DataBaseServices.getInstance().getConnection();
+
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+            preparedStatement.setString(1, uid);
+
+            int row = preparedStatement.executeUpdate();
+            ok = row > 0;
+
+            if (ok) {
+                for (Comment comment : article.getComments())
+                    CommentsServices.getInstance().deleteComment(comment.getUid());
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
