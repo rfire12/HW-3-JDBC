@@ -1,6 +1,7 @@
 package edu.pucmm.sparkjdbc.utils;
 
 import edu.pucmm.sparkjdbc.encapsulation.Tag;
+import edu.pucmm.sparkjdbc.encapsulation.User;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -36,4 +37,10 @@ public final class Utils {
             return value;
         }
     }
+
+    public static User getCurrentUser(){
+        User user = new User("autor01256", "Luis Garcia", "123456", "admin"); //This should be deleted when sessions get implemented
+        return user;
+    }
+
 }

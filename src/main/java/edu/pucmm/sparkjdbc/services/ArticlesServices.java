@@ -109,7 +109,7 @@ public class ArticlesServices {
                     TagsServices.getInstance().createTag(tag);
             }
 
-            for (Tag tag : article.getTags()) {
+            for (Tag tag : article.getTags()) { //Create Article-Tag entries on the Database
                 ArticlesTagsServices.getInstance().createArticleTag(uniqueID, TagsServices.getInstance().getTag(tag.getTag()).getUid());
             }
 
@@ -138,8 +138,22 @@ public class ArticlesServices {
             preparedStatement.setString(2, article.getInformation());
             preparedStatement.setString(3, article.getUid());
 
+
             int row = preparedStatement.executeUpdate();
             ok = row > 0;
+
+            ArticlesTagsServices.getInstance().deleteArticleTags(article.getUid()); // Delete previous article-tags entries from this article
+
+            ArrayList<Tag> createdTags = TagsServices.getInstance().getTags(); // Get tags from the Database
+            for (Tag tag : article.getTags()) {
+                if (!Utils.isTagInArray(tag, createdTags)) //If the tag is not created, then insert it on the database
+                    TagsServices.getInstance().createTag(tag);
+            }
+
+            for (Tag tag : article.getTags()) { //Create Article-Tag entries on the Database
+                ArticlesTagsServices.getInstance().createArticleTag(article.getUid(), TagsServices.getInstance().getTag(tag.getTag()).getUid());
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

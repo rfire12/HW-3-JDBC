@@ -27,11 +27,11 @@ public class ArticlesController {
         post("/new-article", (request, response) -> {
             Date todaysDate = new Date();
             java.sql.Timestamp date = new java.sql.Timestamp(todaysDate.getTime());
-            User author = new User("autor01256", "Luis Garcia", "123456", "admin"); //This should be deleted when sessions get implemented
+            User user = Utils.getCurrentUser();
             String[] tags = request.queryParams("tags").split(",");
 
             ArrayList<Tag> tagList = Utils.arrayToTagList(tags);
-            Article article = new Article(request.queryParams("title"), request.queryParams("article-body"), author, date, tagList);
+            Article article = new Article(request.queryParams("title"), request.queryParams("article-body"), user, date, tagList);
             ArticlesServices.getInstance().createArticle(article);
             response.redirect("/");
             return "";
@@ -50,6 +50,11 @@ public class ArticlesController {
             Article article = ArticlesServices.getInstance().getArticle(request.params("id"));
             article.setTitle(request.queryParams("title"));
             article.setInformation(request.queryParams("article-body"));
+
+            String[] tags = request.queryParams("tags").split(",");
+            ArrayList<Tag> tagList = Utils.arrayToTagList(tags);
+            article.setTags(tagList);
+
             ArticlesServices.getInstance().updateArticle(article);
             response.redirect("/articles/" + request.params("id"));
             return "";

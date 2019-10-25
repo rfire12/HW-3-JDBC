@@ -102,4 +102,26 @@ public class ArticlesTagsServices {
 
         return ok;
     }
+
+    public boolean deleteArticleTags(String uidArticle) {
+        boolean ok = false;
+
+        Connection con = null;
+
+        try {
+            String query = "delete from articlestags where article_id=?";
+            con = DataBaseServices.getInstance().getConnection();
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+
+            preparedStatement.setString(1, uidArticle);
+
+            int row = preparedStatement.executeUpdate();
+            ok = row > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return ok;
+    }
 }
