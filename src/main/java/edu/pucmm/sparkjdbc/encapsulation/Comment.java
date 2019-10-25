@@ -4,16 +4,14 @@ public class Comment {
     private String uid;
     private String comment;
     private User author;
-    private Article article;
 
     public Comment() {
 
     }
 
-    public Comment(String comment, User author, Article article) {
+    public Comment(String comment, User author) {
         this.comment = comment;
         this.author = author;
-        this.article = article;
     }
 
     public String getUid() {
@@ -38,13 +36,5 @@ public class Comment {
 
     public void setAuthor(User author) {
         this.author = author;
-    }
-
-    public Article getArticle() {
-        return article;
-    }
-
-    public void setArticle(Article article) {
-        this.article = article;
     }
 }

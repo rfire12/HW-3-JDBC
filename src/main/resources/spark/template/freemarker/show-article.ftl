@@ -28,8 +28,8 @@
                         <a href="#" class="badge badge-primary">${tag.tag}</a>
                     </#list>
                     <br/><br/><br/>
-                    <form action="/comments/new/${article.uid}">
-                        <textarea placeholder="Comment here" class="form-control"></textarea>
+                    <form action="/comments/new/${article.uid}" method="post">
+                        <textarea placeholder="Comment here" class="form-control" name="comment"></textarea>
                         <br/>
                         <button type="submit" class="btn btn-primary">Post</button>
                     </form>

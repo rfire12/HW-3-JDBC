@@ -69,7 +69,7 @@ public class CommentsServices {
                 String authorId = rs.getString("author_id");
                 User author = UsersServices.getInstance().getUser(authorId);
                 comment.setAuthor(author);
-                comment.setArticle(ArticlesServices.getInstance().getArticle(articleId));
+                comments.add(comment);
             }
         } catch (SQLException e) {
             e.printStackTrace();
