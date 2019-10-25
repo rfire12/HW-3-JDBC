@@ -17,7 +17,7 @@ public class BootStrapServices {
     }
 
     public static void createTables() throws SQLException {
-        System.out.println("Creando tablas...");
+        System.out.println("Creating tables...");
         String usersSQL = "CREATE TABLE IF NOT EXISTS USERS" +
                 "(" +
                 "UID VARCHAR(100) PRIMARY KEY NOT NULL," +
@@ -67,9 +67,9 @@ public class BootStrapServices {
         statement.execute(articlesTagsSQL);
         statement.close();
 
-//        UsersServices.getInstance().createUser(new User("admin", "admin", "123456", "admin"));
+        UsersServices.getInstance().createUser(new User("admin", "Admin", "123456", "admin"));
 
         con.close();
-        System.out.println("Tablas creadas con éxito!!");
+        System.out.println("Tables created!!");
     }
 }
