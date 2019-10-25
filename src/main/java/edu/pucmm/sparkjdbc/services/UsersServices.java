@@ -87,7 +87,7 @@ public class UsersServices {
 
         Connection con = null;
         try {
-            String query = "insert ino users(uid, username, name, password, role) values (?,?,?,?,?)";
+            String query = "insert into users(uid, username, name, password, role) values (?,?,?,?,?)";
             con = DataBaseServices.getInstance().getConnection();
 
             PreparedStatement preparedStatement = con.prepareStatement(query);

@@ -35,13 +35,19 @@
                     </form>
                     <br/>
                     <h3>Comments:</h3>
-                    <ul>
-                        <#list comments as comment>
-                            <li>
-                                ${comment.comment}
-                            </li>
-                        </#list>
-                    </ul>
+                    <hr/>
+                    <#list comments as comment>
+                        <p>
+                            AUTHOR commented:
+                        </p>
+                        <p>
+                            ${comment.comment}
+                        </p>
+                        <form action="/articles/${article.uid}/comments/${comment.uid}" method="post">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                        <hr/>
+                    </#list>
                 </div>
             </div>
         </div>

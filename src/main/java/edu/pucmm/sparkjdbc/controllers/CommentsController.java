@@ -15,5 +15,11 @@ public class CommentsController {
             response.redirect("/articles/" + request.params("article_id"));
             return "";
         });
+
+        post("/articles/:article_id/comments/:comment_id", (request, response) -> {
+            CommentsServices.getInstance().deleteComment(request.params("comment_id"));
+            response.redirect("/articles/" + request.params("article_id"));
+            return "";
+        });
     }
 }

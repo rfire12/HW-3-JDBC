@@ -77,4 +77,31 @@ public class CommentsServices {
 
         return comments;
     }
+
+    public boolean deleteComment(String uid) {
+        boolean ok = false;
+
+        Connection con = null;
+
+        try {
+            String query = "delete from comments where uid = ?";
+            con = DataBaseServices.getInstance().getConnection();
+            PreparedStatement preparedStatement = con.prepareStatement(query);
+
+            preparedStatement.setString(1, uid);
+
+            int row = preparedStatement.executeUpdate();
+            ok = row > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try{
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return ok;
+    }
 }
